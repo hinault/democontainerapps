@@ -1,0 +1,6 @@
+@Nebula.Products.Api_HostAddress = http://localhost:5167
+
+GET {{Nebula.Products.Api_HostAddress}}/products/
+Accept: application/json
+
+###

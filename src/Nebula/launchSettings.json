@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "nebula.web": "StartDebugging",
+        "nebula.orders.api": "StartDebugging",
+        "nebula.products.api": "StartDebugging"
+      }
+    }
+  }
+}

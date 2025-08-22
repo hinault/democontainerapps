@@ -1,0 +1,51 @@
+﻿@page "/"
+@inject IHttpClientFactory HttpClientFactory
+
+<h3>Produits Nebula</h3>
+
+@if (products is null)
+{
+    <p><em>Chargement des produits...</em></p>
+}
+else
+{
+    <ul>
+        @foreach (var p in products)
+        {
+            <li>@p.Name - @p.Price $ - Qté stock @p.Stock</li>
+        }
+    </ul>
+}
+
+<h3>Commandes Nebula</h3>
+
+@if (orders is null)
+{
+    <p><em>Chargement des commandes...</em></p>
+}
+else
+{
+    <ul>
+        @foreach (var o in orders)
+        {
+            <li>Commande #@o.Id – Produit @o.ProductId – Qté @o.Quantity – Total @o.Total $</li>
+        }
+    </ul>
+}
+
+@code {
+    record Product(int Id, string Name, decimal Price, int Stock);
+    record Order(int Id, int ProductId, int Quantity, decimal Total);
+
+    Product[]? products;
+    Order[]? orders;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var productsClient = HttpClientFactory.CreateClient("ProductsApi");
+        products = await productsClient.GetFromJsonAsync<Product[]>("products");
+
+        var ordersClient = HttpClientFactory.CreateClient("OrdersApi");
+        orders = await ordersClient.GetFromJsonAsync<Order[]>("orders");
+    }
+}
