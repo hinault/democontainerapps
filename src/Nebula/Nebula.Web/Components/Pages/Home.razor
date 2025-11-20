@@ -3,6 +3,7 @@
 
 <h3>Produits Nebula</h3>
 
+
 @if (products is null)
 {
     <p><em>Chargement des produits...</em></p>
@@ -48,4 +49,17 @@ else
         var ordersClient = HttpClientFactory.CreateClient("OrdersApi");
         orders = await ordersClient.GetFromJsonAsync<Order[]>("orders");
     }
+}
+
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+
+<h3>Clé API Produits</h3>
+
+@if (string.IsNullOrEmpty(Configuration["ProductAPIKey"]))
+{
+    <p><em>ProductAPIKey non configurée.</em></p>
+}
+else
+{
+    <p>@Configuration["ProductAPIKey"]</p>
 }
