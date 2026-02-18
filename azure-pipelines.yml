@@ -8,8 +8,7 @@ trigger:
 
 variables:
   serviceConnection : 'sc-azure'
-  appName: 'webdemodas'
-  containerRegistry: 'acrdemodas.azurecr.io'
+  containerRegistry: 'nebularegistry.azurecr.io'
   acrServiceConnection : 'sc-acr'
   tag: '$(Build.BuildId)'
   imageRepository: 'nebula-web'
