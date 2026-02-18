@@ -47,8 +47,8 @@ stages:
            - task: AzureContainerApps@1
              inputs:
                azureSubscription: 'sc-azure'
-               containerAppName: 'my-container-app'
-               resourceGroup: 'my-container-app-rg'
+               containerAppName: 'nebula-web'
+               resourceGroup: 'nebula-rg'
                imageToDeploy: '$(containerRegistry)/$(imageRepository):$(tag)'
                environmentVariables: 'ASPNETCORE_ENVIRONMENT=Production ApiSettings__ProductsApiUrl=http://nebula-products-api/ ApiSettings__OrdersApiUrl=http://nebula-orders-api/'
              
