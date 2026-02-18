@@ -49,6 +49,6 @@ stages:
                containerAppName: 'nebula-web'
                resourceGroup: 'nebula-rg'
                imageToDeploy: '$(containerRegistry)/$(imageRepository):$(tag)'
-               environmentVariables: 'ASPNETCORE_ENVIRONMENT=Production ApiSettings__ProductsApiUrl=http://nebula-products-api/ ApiSettings__OrdersApiUrl=http://nebula-orders-api/'
+               environmentVariables: 'ASPNETCORE_ENVIRONMENT=Development ApiSettings__ProductsApiUrl=http://nebula-products-api/ ApiSettings__OrdersApiUrl=http://nebula-orders-api/'
              displayName: 'Déploiement dans Aure Container Apps'
              
