@@ -28,7 +28,7 @@ stages:
           repository: '$(imageRepository)'
           command: 'buildAndPush'
           Dockerfile: 'src/Nebula.Web/Dockerfile'
-          buildContext: '$(Build.SourcesDirectory)'
+          buildContext: '$(Build.SourcesDirectory)/src'
         displayName: 'Génération et push image dans registre de conteneurs'
 
    
