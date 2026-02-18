@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+- none
 
 variables:
   serviceConnection : 'sc-azure'
@@ -50,4 +50,5 @@ stages:
                resourceGroup: 'nebula-rg'
                imageToDeploy: '$(containerRegistry)/$(imageRepository):$(tag)'
                environmentVariables: 'ASPNETCORE_ENVIRONMENT=Production ApiSettings__ProductsApiUrl=http://nebula-products-api/ ApiSettings__OrdersApiUrl=http://nebula-orders-api/'
+             displayName: 'Déploiement dans Aure Container Apps'
              
