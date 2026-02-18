@@ -1,0 +1,54 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+variables:
+  serviceConnection : 'sc-azure'
+  appName: 'webdemodas'
+  containerRegistry: 'acrdemodas.azurecr.io'
+  acrServiceConnection : 'sc-acr'
+  tag: '$(Build.BuildId)'
+  imageRepository: 'nebula-web'
+
+stages:
+- stage : 'Build' 
+  displayName:  'Génération et push image'
+  pool:
+    vmImage: 'ubuntu-latest'
+  jobs:
+    - job : 'Build'
+      steps:
+      - task: Docker@2
+        inputs:
+          containerRegistry: '$(acrServiceConnection)'
+          repository: '$(imageRepository)'
+          command: 'buildAndPush'
+          Dockerfile: 'Nebula.Web/Dockerfile'
+          buildContext: '$(Build.SourcesDirectory)'
+        displayName: 'Génération et push image dans registre de conteneurs'
+
+   
+- stage : 'DeployToDev' 
+  displayName:  'Déploiment en Dev'
+  pool:
+    vmImage: 'ubuntu-latest'
+  dependsOn: 'Build'
+  jobs:
+    - deployment : 'DeployToDev'
+      environment: 'Dev'
+      strategy:
+        runOnce:
+         deploy:
+           steps:
+           - task: AzureContainerApps@1
+             inputs:
+               azureSubscription: 'sc-azure'
+               containerAppName: 'my-container-app'
+               resourceGroup: 'my-container-app-rg'
+               imageToDeploy: '$(containerRegistry)/$(imageRepository):$(tag)'
+               environmentVariables: 'ASPNETCORE_ENVIRONMENT=Production ApiSettings__ProductsApiUrl=http://nebula-products-api/ ApiSettings__OrdersApiUrl=http://nebula-orders-api/'
+             
