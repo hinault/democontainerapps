@@ -27,7 +27,7 @@ stages:
           containerRegistry: '$(acrServiceConnection)'
           repository: '$(imageRepository)'
           command: 'buildAndPush'
-          Dockerfile: 'Nebula.Web/Dockerfile'
+          Dockerfile: 'src/Nebula.Web/Dockerfile'
           buildContext: '$(Build.SourcesDirectory)'
         displayName: 'Génération et push image dans registre de conteneurs'
 
