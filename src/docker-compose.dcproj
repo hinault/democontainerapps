@@ -15,5 +15,8 @@
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="Nebula.Job\Dockerfile" />
+    <None Include="Nebula.Job\Nebula.Job.csproj" />
+    <None Include="Nebula.Job\Program.cs" />
   </ItemGroup>
 </Project>
