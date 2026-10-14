@@ -29,6 +29,14 @@ app.MapPost("/orders", (dynamic order) =>
     return Results.Created($"/orders/{order.Id}", order);
 });
 
+// Health endpoint for probes
+app.MapGet("/health", (HttpContext ctx) =>
+{
+    var header = ctx.Request.Headers["Custom-Header"].FirstOrDefault();
+    var result = new { status = "Healthy", header };
+    return Results.Ok(result);
+});
+
 app.Run();
 
 

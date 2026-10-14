@@ -30,5 +30,14 @@ app.MapGet("/products/{id}", (int id) =>
         ? Results.Ok(product)
         : Results.NotFound());
 
+// Health endpoint for probes
+app.MapGet("/health", (HttpContext ctx) =>
+{
+    // echo custom header if provided (useful for probe headers)
+    var header = ctx.Request.Headers["Custom-Header"].FirstOrDefault();
+    var result = new { status = "Healthy", header };
+    return Results.Ok(result);
+});
+
 app.Run();
 
